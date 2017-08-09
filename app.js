@@ -1,6 +1,6 @@
 
-function TableCreation(props) {
-	console.log(props.object)
+function TableCreation (props) {
+
 	return(
 		<div>
 			<table>
@@ -14,7 +14,7 @@ function TableCreation(props) {
 				</thead>
 				<tbody>
 					<tr>
-						<th>{props.object.month}</th>
+						<th><button>{props.object.month}</button></th>
 						<th>{props.object.work}</th>
 						<th>{props.object.exercise}</th>
 						<th>{props.object.travel}</th>
@@ -35,24 +35,9 @@ function DataCreation(props) {
 
 
 
-function AppCreation(props) {
-	const thisyear = [
-	{month: "august", work: "ads in games and learning", exercise: "jogging", travel: "rogozno", id: "0"},
-	{month: "september", work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", id: "1"},
-	{month: "august", work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", id: "2"}
-	]
-	
-	const nextyear = [
-	{month: "august", work: "ads in games and learning", exercise: "jogging", travel: "rogozno", id: "0"},
-	{month: "september", work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", id: "1"},
-	{month: "august", work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", id: "2"}
-	]
 
-	const theyearafter = [
-	{month: "august", work: "ads in games and learning", exercise: "jogging", travel: "rogozno", id: "0"},
-	{month: "september", work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", id: "1"},
-	{month: "august", work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", id: "2"}
-	]
+function AppCreation(props) {
+
 
 	return(
 		<div>
@@ -64,7 +49,74 @@ function AppCreation(props) {
 		);
 }
 
+
+
+class AppComponent extends React.Component {
+	
+
+
+	constructor(props) {
+		super(props);
+		this.state = {count: 5, title: "Hello world"};
+		this.increment = this.increment.bind(this);
+		this.decrement = this.decrement.bind(this);
+
+	}
+
+	decrement() {
+		const {count} = this.state;
+		this.setState({count: count - 1});
+	}
+	
+	increment() {
+		const {count} = this.state;
+		this.setState({count: count + 1});
+	}
+
+	render() {
+		// const {count, title} = this.state;
+
+		const thisyear = [
+		{month: this.state.count, work: "ads in games and learning", exercise: "jogging", travel: "rogozno", id: "0"},
+		{month: this.state.count + 1, work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", id: "1"},
+		{month: this.state.count + 1, work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", id: "2"}
+		]
+		
+		const nextyear = [
+		{month: this.state.count + 1, work: "ads in games and learning", exercise: "jogging", travel: "rogozno", id: "0"},
+		{month: this.state.count + 1, work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", id: "1"},
+		{month: this.state.count + 1, work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", id: "2"}
+		]
+
+		const theyearafter = [
+		{month: this.state.count + 1, work: "ads in games and learning", exercise: "jogging", travel: "rogozno", id: "0"},
+		{month: this.state.count + 1, work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", id: "1"},
+		{month: this.state.count + 1, work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", id: "2"}
+		]
+
+		return (
+			<div>
+				<h1>Calendar : {this.state.count}</h1>
+				<button onClick={this.decrement}>-</button>
+				<button onClick={this.increment}>+</button>
+				<DataCreation sometime={thisyear} />
+				<DataCreation sometime={nextyear} />
+				<DataCreation sometime={theyearafter} />
+			</div>);
+	}
+}
+
 ReactDOM.render(
-	<AppCreation />,
+	<AppComponent />,
 	document.getElementById("root")
 	);
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+I'm learning the map() method by building a simple table
