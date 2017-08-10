@@ -1,139 +1,52 @@
 
-// function TableCreation (props) {
+function TableCreation (props) {
 
-// 	return(
-// 		<div>
-// 			<table>
-// 				<thead>
-// 					<tr>
-// 						<th>Month</th>
-// 						<th>Work</th>
-// 						<th>Exercise</th>
-// 						<th>Travel</th>
-// 					</tr>
-// 				</thead>
-// 				<tbody>
-// 					<tr>
-// 						<th><button>{props.object.month}</button></th>
-// 						<th>{props.object.work}</th>
-// 						<th>{props.object.exercise}</th>
-// 						<th>{props.object.travel}</th>
-// 					</tr>
-// 				</tbody>
-// 			</table>
-// 		</div>
-// 		);
-// }
+	return(
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>Month</th>
+						<th>Work</th>
+						<th>Exercise</th>
+						<th>Travel</th>
+						<th>Is completed</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th><button>{props.object.month}</button></th>
+						<th>{props.object.work}</th>
+						<th>{props.object.exercise}</th>
+						<th>{props.object.travel}</th>
+						<td><input type="checkbox" 
+				            checked={props.object.isCompleted}
+				            /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		);
+}
 
-// function DataCreation(props) {
-// 	return(
-// 			<div>
-// 				{props.sometime.map(x => <TableCreation object={x} key={x.id} />)}
-// 			</div>
-// 		);
-// }
-
-
-// class AppComponent extends React.Component {
-	
-
-
-// 	constructor(props) {
-// 		super(props);
-
-// 		this._nextToDoId = 1;
-// 		this._count = 1;
-// 		this.state = {
-			
-// 			title: "Hello world",
-// 			filter : {showCompleted: true},
-// 			todos: [
-// 				{id: this._nextToDoId++, text: "Hey!", isCompleted: false},
-// 				{id: this._nextToDoId++, text: "Stuff", isCompleted: true},
-// 				{id: this._nextToDoId++, text: "Things", isCompleted: true},
-// 				{id: this._nextToDoId++, text: "Something", isCompleted: false}
-// 			],
-
-// 			thisyear: [
-// 				{month: this.count + 0, work: "ads", exercise: "jogging", travel: "rogozno", isCompleted: true, id: "0"},
-// 				{month: this.count + 1, work: "open source", exercise: "pilates", travel: "none", isCompleted: true, id: "1"},
-// 				{month: this.count + 2, work: "trainee", exercise: "climbing", travel: "Poznan", isCompleted: true, id: "2"}
-// 			],
-		
-// 			nextyear: [
-// 				{month: this.count + 3, work: "junior dev", exercise: "acrobatics", travel: "Czech", isCompleted: true, id: "0"},
-// 				{month: this.count + 4, work: "advanced junior", exercise: "advanced climbing", travel: "Berlin", isCompleted: true, id: "1"},
-// 				{month: this.count + 5, work: "medium", exercise: "diving", travel: "London", isCompleted: true, id: "2"}
-// 			],
-
-// 			theyearafter: [
-// 				{month: this.count + 6, work: "ads in games and learning", exercise: "jogging", travel: "rogozno", isCompleted: true, id: "0"},
-// 				{month: this.count + 7, work: "work with some open source projects", exercise: "pilates and climbing", travel: "none", isCompleted: true, id: "1"},
-// 				{month: this.count + 8, work: "training as a react developer", exercise: "pilates and acrobatics", travel: "some events in Poland", isCompleted: true, id: "2"}
-// 			]
-// 		};
-// 		this.increment = this.increment.bind(this);
-// 		this.decrement = this.decrement.bind(this);
-// 		this._onShowCompletedChanged = this._onShowCompletedChanged.bind(this);
-
-// 	}
-
-// 	decrement() {
-// 		const {count} = this.state;
-// 		this.setState({count: count - 1});
-// 	}
-	
-// 	increment() {
-// 		const {count} = this.state;
-// 		this.setState({count: count + 1});
-// 	}
-
-// 	_onShowCompletedChanged(e) {
-// 		this.setState({
-// 			filter: {showCompleted: e.target.checked}
-// 		})
-
-// 	}
-
-// 	render() {
-// 		// const {count, title} = this.state;
-
-// 		const {filter} = this.state;
-// 		// const filteredTodos = filter.showCompleted ? todos : todos.filter(todo => !todo.isCompleted);
-
-// 		return (
-// 			<div>
-// 				<h1>Calendar : {this.state.count}</h1>
-// 				<button onClick={this.decrement}>-</button>
-// 				<button onClick={this.increment}>+</button>
-// 				<br/>
-// 				<label>
-// 					Show Completed
-// 					<input 
-// 						type="checkbox" 
-// 						checked={filter.showCompleted}
-// 						onChange={this._onShowCompletedChanged}
-// 					/>
-// 				</label>
-// 				<DataCreation sometime={thisyear} todos={todos}/>
-// 				<DataCreation sometime={nextyear} todos={todos}/>
-// 				<DataCreation sometime={theyearafter} todos={todos}/>
-// 			</div>);
-// 	}
-// }
-
-// ReactDOM.render(
-// 	<AppComponent />,
-// 	document.getElementById("root")
-// 	);
+function DataCreation(props) {
+	return(
+			<div>
+				{props.sometime.map(x => <TableCreation object={x} key={x.id} />)}
+			</div>
+		);
+}
 
 
-function TodoList({smth, shopping}) {
+function TodoList({smth, shopping, onSetTodoStatus}) {
     return (
             <ul>
                 {smth.map(todo =>
                     <li key={todo.id}>
-                        {todo.isCompleted ? <del>{todo.text}</del> : todo.text}
+                    	<label>
+                    		<input type="checkbox" checked={todo.isCompleted} onChange={e => onSetTodoStatus(todo, e.target.checked)} />
+                    		{todo.isCompleted ? <del>{todo.text}</del> : todo.text}</label>
+                        
                     </li>)}
                  <table>
 	            	{shopping.map(shoppings =>
@@ -168,20 +81,24 @@ class AppComponent extends React.Component {
         {id: "5", text: "name", isCompleted: true},
         {id: "6", text: "is", isCompleted: true},
         {id: "7", text: "tyler", isCompleted: false}
-      ]
+      ],
+
+      thisyear: [
+		{month: "sep", work: "ads", exercise: "jogging", travel: "rogozno", isCompleted: true, id: "0"},
+		{month: "oct", work: "open source", exercise: "pilates", travel: "none", isCompleted: true, id: "1"},
+		{month: "dec", work: "trainee", exercise: "climbing", travel: "Poznan", isCompleted: true, id: "2"}
+		]
     };
 
     this._onShowCompletedChanged = this._onShowCompletedChanged.bind(this);
+    this._setTodoStatus = this._setTodoStatus.bind(this);
   }
 
   render() {
-    const {filter, todos, shoppings} = this.state;
+    const {filter, todos, shoppings, thisyear} = this.state;
     const filteredTodos = filter.showCompleted
         ? todos
-        : todos.filter(todo => !todo.isCompleted);
-    // const {shoppings} = this.state;
-
-   
+        : todos.filter(todo => !todo.isCompleted);   
 
     return (
       <div >
@@ -193,13 +110,26 @@ class AppComponent extends React.Component {
             onChange={this._onShowCompletedChanged} />
         </label>
 
-        <TodoList smth={filteredTodos} shopping={shoppings}/>
+        <TodoList smth={filteredTodos} shopping={shoppings} onSetTodoStatus={this._setTodoStatus}/>
+        <DataCreation sometime={thisyear} />
 
       </div>
     );
   }
+	_setTodoStatus(todo, isComplete) {
+		const {todos} = this.state;
+		const newTodos = todos.map(oldTodo => {
+				if (oldTodo.id !== todo.id)
+					return oldTodo;
 
-   _onShowCompletedChanged(e) {
+				return Object.assign({}, oldTodo, {isCompleted: isCompleted});
+			});
+		
+		this.setState({ todos: newTodos });
+	}
+   	
+
+   	_onShowCompletedChanged(e) {
         this.setState({
             filter: {showCompleted: e.target.checked}
         });
